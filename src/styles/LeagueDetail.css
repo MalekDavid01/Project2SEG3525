@@ -68,12 +68,14 @@
 .btn-contact-manager:hover {
     background-color: #555555; /* Slightly lighter on hover */
 }
+
 .back-button-league {
   align-items: center;
   margin-top: 10px;
   /* margin-left: 10px; */
   margin-bottom: 100px;
 }
+
 .btn-send {
     padding: 0.5rem 1rem; /* Increase padding */
     font-size: 1rem; /* Increase font size */
@@ -81,8 +83,13 @@
     border: none;
     color: white;
     border-radius: 5px;
+    margin-top: 20px; /* Add margin above the Send button */
 }
 
 .btn-send:hover {
     background-color: #555555; /* Slightly lighter on hover */
+}
+
+.text-center {
+    text-align: center;
 }
