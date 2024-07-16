@@ -61,11 +61,12 @@ const NewsArticle = () => {
     <Container fluid className="news-article-container">
       <h2 className="news-title">Our Latest News!</h2>
       <div className="d-flex align-items-center justify-content-center mb-3 position-relative">
-        <Link to="/news" className="position-absolute start-0">
-          <Button variant="dark" className="back-button">
-            <FaArrowLeft className="me-2" /> Back
-          </Button>
-        </Link>
+      <Link to="/news" className="position-absolute start-0">
+            <Button variant="dark" className="back-button">
+            <FaArrowLeft className="me-2" />
+              Back
+            </Button>
+          </Link>
         <h2 className="news-article-header m-0">{news.title}</h2>
       </div>
       <div className="text-center">

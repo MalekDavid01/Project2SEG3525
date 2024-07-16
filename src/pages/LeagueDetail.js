@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { Container, Row, Table, Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import leaguesData from '../data/LeaguesData';
+import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/LeagueDetail.css';
 
 const LeagueDetail = () => {
@@ -46,8 +48,13 @@ const LeagueDetail = () => {
   return (
     <Container fluid className="league-detail-container">
       <h2 className="league-title">{league.name}</h2>
-      <p className="league-description">Details about the league...</p>
-
+      <h2 className="league-description">
+        <Link to="/explore-competitions" className="position-absolute start-0">
+            <Button variant="dark" className="back-button-league">
+            <FaArrowLeft className="me-2" />
+              Back to Explore Competetions page
+            </Button>
+      </Link>Current Enrolled Teams and Manager Contact Details</h2>
       <div className="table-container">
         <Table striped bordered hover className="table">
           <thead>
@@ -104,9 +111,11 @@ const LeagueDetail = () => {
                 placeholder="Enter your message"
               />
             </Form.Group>
-            <Button variant="dark" onClick={handleSendEmail}>
-              Send
-            </Button>
+            <div className="text-center">
+        <Button variant="dark" className="btn-send mt-3" onClick={handleSendEmail}>
+            Send Email
+        </Button>
+    </div>
           </Form>
         </div>
       )}

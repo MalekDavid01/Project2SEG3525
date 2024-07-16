@@ -42,6 +42,7 @@
 }
 
 .table {
+    margin-top: 20px;
     width: 100%; /* Ensure full width */
     border-radius: 5px;
     overflow: hidden; /* Ensure the rounded corners are applied */
@@ -65,5 +66,23 @@
 }
 
 .btn-contact-manager:hover {
+    background-color: #555555; /* Slightly lighter on hover */
+}
+.back-button-league {
+  align-items: center;
+  margin-top: 10px;
+  /* margin-left: 10px; */
+  margin-bottom: 100px;
+}
+.btn-send {
+    padding: 0.5rem 1rem; /* Increase padding */
+    font-size: 1rem; /* Increase font size */
+    background-color: #333333; /* Match the color of other buttons */
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn-send:hover {
     background-color: #555555; /* Slightly lighter on hover */
 }

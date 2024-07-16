@@ -819,6 +819,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, ProgressBar } from 'react-bootstrap';
 import Calendar from 'react-calendar';
+import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/Register.css';
 
 const Register = () => {
@@ -971,6 +973,12 @@ const Register = () => {
       </div>
       <Row className="justify-content-center">
         <Col md={6}>
+        <Link to="/register" className="position-absolute start-0">
+            <Button variant="dark" className="back-button-register">
+            <FaArrowLeft className="me-2" />
+              Back to Registration Type Selection
+            </Button>
+          </Link>
           {step === 1 && (
             <div className="form-step">
               <h3>Step 1: Team Information</h3>

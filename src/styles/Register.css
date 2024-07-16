@@ -117,3 +117,9 @@
 .practice-day-legend {
   background-color: #99ccff;
 }
+.back-button-register {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px;
+}
