@@ -29,7 +29,11 @@
 //         <p className="news-article-author">Author: John Doe, Reporter for Ottawa Soccer Champions League</p>
 //       </div>
 //       <img src={news.image} alt={news.title} className="news-article-image" />
-//       <p className="news-article-content">{news.content}</p>
+//       <div className="news-article-content">
+//         {news.content.split('\n').map((paragraph, index) => (
+//           <p key={index}>{paragraph}</p>
+//         ))}
+//       </div>
 //     </Container>
 //   );
 // };
