@@ -1,6 +1,7 @@
-// // src/pages/IndividualRegister.js
 // import React, { useState } from 'react';
 // import { Container, Row, Col, Form, Button, ProgressBar } from 'react-bootstrap';
+// import { Link } from 'react-router-dom';
+// import { FaArrowLeft } from 'react-icons/fa';
 // import '../styles/Register.css';
 
 // const IndividualRegister = () => {
@@ -68,6 +69,12 @@
 //       </div>
 //       <Row className="justify-content-center">
 //         <Col md={6}>
+//           <Link to="/register" className="position-absolute start-0">
+//             <Button variant="dark" className="back-button-register">
+//             <FaArrowLeft className="me-2" />
+//               Back to Registration Type Selection
+//             </Button>
+//           </Link>
 //           {step === 1 && (
 //             <div className="form-step">
 //               <h3>Step 1: Team Information</h3>
@@ -347,7 +354,7 @@
 
 
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button, ProgressBar } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, ProgressBar, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/Register.css';
@@ -375,11 +382,13 @@ const IndividualRegister = () => {
   const nextStep = () => {
     if (validateForm()) {
       setStep(step + 1);
+      window.scrollTo(0, 0); // Scroll to the top of the page
     }
   };
 
   const prevStep = () => {
     setStep(step - 1);
+    window.scrollTo(0, 0); // Scroll to the top of the page
   };
 
   const handleChange = (e) => {
@@ -387,6 +396,34 @@ const IndividualRegister = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
+    const phonePattern2 = /^\(\d{3}\) \d{3} - \d{4}$/;
+    const plainPhonePattern = /^\d{10}$/;
+    return phonePattern.test(phoneNumber)|| phonePattern2.test(phoneNumber) || plainPhonePattern.test(phoneNumber);
+  };
+  
+  const validateCreditCard = (cardNumber) => {
+    const cardPattern = /^\d{4} \d{4} \d{4} \d{4}$/;
+    const plainCardPattern = /^\d{12}$/;
+    return cardPattern.test(cardNumber) || plainCardPattern.test(cardNumber);
+  };  
+
+  const validateExpiryDate = (expiryDate) => {
+    const datePattern = /^(0[1-9]|1[0-2])\/\d{4}$/;
+    return datePattern.test(expiryDate);
+  };
+
+  const validateCVV = (cvv) => {
+    const cvvPattern = /^\d{3}$/;
+    return cvvPattern.test(cvv);
   };
 
   const validateForm = () => {
@@ -397,9 +434,25 @@ const IndividualRegister = () => {
       3: ['paymentMethod', 'creditCardNumber', 'expiryDate', 'cvv']
     };
 
-    requiredFields[step].forEach(field => {
+    requiredFields[step]?.forEach(field => {
       if (!formData[field]) {
         newErrors[field] = 'This field is required';
+      } else {
+        if (field === 'managerEmail' && !validateEmail(formData[field])) {
+          newErrors[field] = 'Please enter a valid email address (e.g., someone@example.com)';
+        }
+        if (field === 'managerPhone' && !validatePhoneNumber(formData[field])) {
+          newErrors[field] = 'Please enter a valid phone number (10 digits)';
+        }
+        if (field === 'creditCardNumber' && !validateCreditCard(formData[field])) {
+          newErrors[field] = 'Please enter a valid credit card number (12 digits)';
+        }
+        if (field === 'expiryDate' && !validateExpiryDate(formData[field])) {
+          newErrors[field] = 'Please enter a valid expiry date in the format MM/YYYY';
+        }
+        if (field === 'cvv' && !validateCVV(formData[field])) {
+          newErrors[field] = 'Please enter a valid CVV (3 digits)';
+        }
       }
     });
 
@@ -408,6 +461,36 @@ const IndividualRegister = () => {
   };
 
   const getInputClass = (field) => (errors[field] ? 'is-invalid' : '');
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Email must contain @ and end with a valid domain (e.g., .com, .ca).
+    </Tooltip>
+  );
+
+  const renderPhoneTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Phone number must be 10 digits.
+    </Tooltip>
+  );
+
+  const renderCardTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Credit card number must be 12 digits.
+    </Tooltip>
+  );
+
+  const renderExpiryTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Expiry date must be in the format MM/YYYY.
+    </Tooltip>
+  );
+
+  const renderCvvTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      CVV must be 3 digits.
+    </Tooltip>
+  );
 
   return (
     <Container fluid className="register-container">
@@ -419,7 +502,7 @@ const IndividualRegister = () => {
         <Col md={6}>
           <Link to="/register" className="position-absolute start-0">
             <Button variant="dark" className="back-button-register">
-            <FaArrowLeft className="me-2" />
+              <FaArrowLeft className="me-2" />
               Back to Registration Type Selection
             </Button>
           </Link>
@@ -560,35 +643,47 @@ const IndividualRegister = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="managerEmail">
-                  <Form.Label>Email (required)</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="managerEmail"
-                    placeholder="something@example.com"
-                    value={formData.managerEmail}
-                    onChange={handleChange}
-                    className={getInputClass('managerEmail')}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.managerEmail}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderTooltip}
+                >
+                  <Form.Group controlId="managerEmail">
+                    <Form.Label>Email (required)</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="managerEmail"
+                      placeholder="someone@example.com"
+                      value={formData.managerEmail}
+                      onChange={handleChange}
+                      className={getInputClass('managerEmail')}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.managerEmail}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </OverlayTrigger>
 
-                <Form.Group controlId="managerPhone">
-                  <Form.Label>Phone Number (required)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="managerPhone"
-                    placeholder="(XXX) XXX - XXXX"
-                    value={formData.managerPhone}
-                    onChange={handleChange}
-                    className={getInputClass('managerPhone')}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.managerPhone}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderPhoneTooltip}
+                >
+                  <Form.Group controlId="managerPhone">
+                    <Form.Label>Phone Number (required)</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="managerPhone"
+                      placeholder="(XXX) XXX - XXXX"
+                      value={formData.managerPhone}
+                      onChange={handleChange}
+                      className={getInputClass('managerPhone')}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.managerPhone}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </OverlayTrigger>
 
                 <Button variant="dark" onClick={prevStep} className="mt-3">
                   Go Back
@@ -622,50 +717,68 @@ const IndividualRegister = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="creditCardNumber">
-                  <Form.Label>Card Number (required)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="creditCardNumber"
-                    placeholder="XXXX - XXXX - XXXX - XXXX"
-                    value={formData.creditCardNumber}
-                    onChange={handleChange}
-                    className={getInputClass('creditCardNumber')}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.creditCardNumber}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderCardTooltip}
+                >
+                  <Form.Group controlId="creditCardNumber">
+                    <Form.Label>Card Number (required)</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="creditCardNumber"
+                      placeholder="XXXX XXXX XXXX XXXX"
+                      value={formData.creditCardNumber}
+                      onChange={handleChange}
+                      className={getInputClass('creditCardNumber')}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.creditCardNumber}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </OverlayTrigger>
 
-                <Form.Group controlId="expiryDate">
-                  <Form.Label>Expiry Date (required)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="expiryDate"
-                    placeholder="MM/YYYY"
-                    value={formData.expiryDate}
-                    onChange={handleChange}
-                    className={getInputClass('expiryDate')}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.expiryDate}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderExpiryTooltip}
+                >
+                  <Form.Group controlId="expiryDate">
+                    <Form.Label>Expiry Date (required)</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="expiryDate"
+                      placeholder="MM/YYYY"
+                      value={formData.expiryDate}
+                      onChange={handleChange}
+                      className={getInputClass('expiryDate')}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.expiryDate}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </OverlayTrigger>
 
-                <Form.Group controlId="cvv">
-                  <Form.Label>CVV (required)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="cvv"
-                    placeholder="XXX"
-                    value={formData.cvv}
-                    onChange={handleChange}
-                    className={getInputClass('cvv')}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.cvv}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderCvvTooltip}
+                >
+                  <Form.Group controlId="cvv">
+                    <Form.Label>CVV (required)</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="cvv"
+                      placeholder="XXX"
+                      value={formData.cvv}
+                      onChange={handleChange}
+                      className={getInputClass('cvv')}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.cvv}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </OverlayTrigger>
 
                 <div className="d-flex justify-content-between">
                   <Button variant="dark" onClick={prevStep} className="mt-3">
@@ -681,8 +794,8 @@ const IndividualRegister = () => {
           {step === 4 && (
             <div className="form-step">
               <h3>Thank You</h3>
-              <p>Thank you for registering to a team of the Ottawa Soccer Champions League.</p>
-              <p>Shortly you will find a confirmation in your email.</p>
+              <p>Thank you for applying to becoming a member of a team of the Ottawa Soccer Champions League.</p>
+              <p>Shortly you will receive your application status in your email informing you whether the team has chosen to proceed with you or not.</p>
               <div className="d-flex justify-content-center">
                 <Button variant="dark" href="/" className="mt-3">
                   Continue to Home Page
