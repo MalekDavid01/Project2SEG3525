@@ -48,6 +48,7 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaQuestionCircle } from 'react-icons/fa'; // Ensure this import is included
+import { FaUser } from 'react-icons/fa';
 import '../styles/NavigationBar.css';
 import logo from '../assets/logo.png';
 
@@ -86,6 +87,9 @@ const NavigationBar = () => {
             <Nav.Link>
               <FaQuestionCircle className="me-2" /> FAQ
             </Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/login">
+            <Nav.Link><FaUser /> Login/SignUp</Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
