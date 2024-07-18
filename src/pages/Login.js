@@ -1,5 +1,5 @@
 // import React, { useState } from 'react';
-// import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+// import { OverlayTrigger, Tooltip, Button, Form } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 // import '../styles/Login.css';
 
@@ -9,6 +9,9 @@
 //     password: '',
 //   });
 
+//   const [emailError, setEmailError] = useState('');
+//   const [passwordError, setPasswordError] = useState('');
+
 //   const handleChange = (e) => {
 //     setFormData({
 //       ...formData,
@@ -16,15 +19,58 @@
 //     });
 //   };
 
+//   const handleUserEmailChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       email: e.target.value,
+//     });
+//     if (emailError) {
+//       setEmailError('');
+//     }
+//   };
+
+//   const handlePasswordChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       password: e.target.value,
+//     });
+//     if (passwordError) {
+//       setPasswordError('');
+//     }
+//   };
+
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
-//     // Add your login logic here
-//     window.location.reload(); // Reload the page upon submission
+//     const emailValidation = validateEmail(formData.email);
+//     const passwordValidation = validatePassword(formData.password);
+//     if (emailValidation.isValid && passwordValidation.isValid) {
+//       // Add your login logic here
+//       window.location.reload(); // Reload the page upon submission
+//     } else {
+//       setEmailError(emailValidation.errorMessage);
+//       setPasswordError(passwordValidation.errorMessage);
+//     }
 //   };
 
 //   const validateEmail = (email) => {
-//     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     return emailPattern.test(email);
+//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     if (!emailRegex.test(email)) {
+//       if (!email.includes('@')) {
+//         return { isValid: false, errorMessage: 'Email must contain @.' };
+//       } else if (!email.match(/\.[a-zA-Z]{2,}$/)) {
+//         return { isValid: false, errorMessage: 'Email must end with a valid domain (e.g., .com, .ca).' };
+//       } else {
+//         return { isValid: false, errorMessage: 'Please enter a valid email address.' };
+//       }
+//     }
+//     return { isValid: true, errorMessage: '' };
+//   };
+
+//   const validatePassword = (password) => {
+//     if (password.length < 8) {
+//       return { isValid: false, errorMessage: 'Password must be at least 8 characters long.' };
+//     }
+//     return { isValid: true, errorMessage: '' };
 //   };
 
 //   const renderTooltipEmail = (props) => (
@@ -33,35 +79,52 @@
 //     </Tooltip>
 //   );
 
+//   const renderTooltipPassword = (props) => (
+//     <Tooltip id="password-tooltip" {...props}>
+//       Password must be at least 8 characters long.
+//     </Tooltip>
+//   );
+
 //   return (
 //     <div className="login-container">
 //       <h2 className="login-title">Login</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div className="form-group">
-//           <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltipEmail}>
-//             <label>Email Address</label>
+//       <Form onSubmit={handleSubmit}>
+//         <Form.Group controlId="email">
+//           <Form.Label>Email Address</Form.Label>
+//           <OverlayTrigger placement="right" overlay={renderTooltipEmail}>
+//             <Form.Control
+//               type="email"
+//               value={formData.email}
+//               onChange={handleUserEmailChange}
+//               placeholder="someone@example.com"
+//               isInvalid={!!emailError}
+//             />
 //           </OverlayTrigger>
-//           <input
-//             type="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleChange}
-//             required
-//           />
+//           <Form.Control.Feedback type="invalid">
+//             {emailError}
+//           </Form.Control.Feedback>
+//         </Form.Group>
+//         <Form.Group controlId="password">
+//           <Form.Label>Password</Form.Label>
+//           <OverlayTrigger placement="right" overlay={renderTooltipPassword}>
+//             <Form.Control
+//               type="password"
+//               name="password"
+//               value={formData.password}
+//               onChange={handlePasswordChange}
+//               placeholder="Enter your password"
+//               isInvalid={!!passwordError}
+//             />
+//           </OverlayTrigger>
+//           <Form.Control.Feedback type="invalid">
+//             {passwordError}
+//           </Form.Control.Feedback>
+//         </Form.Group>
+//         <div className="d-flex justify-content-center">
+//           <Button type="submit" className="mt-3 btn-dark">Login</Button>
 //         </div>
-//         <div className="form-group">
-//           <label>Password</label>
-//           <input
-//             type="password"
-//             name="password"
-//             value={formData.password}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <button type="submit" className="btn btn-dark">Login</button>
-//       </form>
-//       <p>
+//       </Form>
+//       <p className="text-center mt-3">
 //         Don't have an account? <Link to="/signup">Sign up</Link>
 //       </p>
 //     </div>
@@ -71,67 +134,110 @@
 // export default Login;
 
 
-
 import React, { useState } from 'react';
 import { OverlayTrigger, Tooltip, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [userEmail, setUserEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleUserEmailChange = (e) => {
+    setUserEmail(e.target.value);
+    if (emailError) {
+      setEmailError('');
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (passwordError) {
+      setPasswordError('');
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here
-    window.location.reload(); // Reload the page upon submission
+    const emailValidation = validateEmail(userEmail);
+    const passwordValidation = validatePassword(password);
+    if (emailValidation.isValid && passwordValidation.isValid) {
+      // Add your login logic here
+      window.location.reload(); // Reload the page upon submission
+    } else {
+      setEmailError(emailValidation.errorMessage);
+      setPasswordError(passwordValidation.errorMessage);
+    }
   };
 
   const validateEmail = (email) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      if (!email.includes('@')) {
+        return { isValid: false, errorMessage: 'Email must contain @.' };
+      } else if (!email.match(/\.[a-zA-Z]{2,}$/)) {
+        return { isValid: false, errorMessage: 'Email must end with a valid domain (e.g., .com, .ca).' };
+      } else {
+        return { isValid: false, errorMessage: 'Please enter a valid email address.' };
+      }
+    }
+    return { isValid: true, errorMessage: '' };
   };
 
-  const renderTooltip = (props) => (
+  const validatePassword = (password) => {
+    if (password.length < 8) {
+      return { isValid: false, errorMessage: 'Password must be at least 8 characters long.' };
+    }
+    return { isValid: true, errorMessage: '' };
+  };
+
+  const renderEmailTooltip = (props) => (
     <Tooltip id="email-tooltip" {...props}>
       Email must contain @ and end with a valid domain (e.g., .com, .ca).
+    </Tooltip>
+  );
+
+  const renderPasswordTooltip = (props) => (
+    <Tooltip id="password-tooltip" {...props}>
+      Password must be at least 8 characters long.
     </Tooltip>
   );
 
   return (
     <div className="login-container">
       <h2 className="login-title">Login</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} noValidate>
         <Form.Group controlId="email">
-          <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-            <Form.Label>Email Address</Form.Label>
+          <Form.Label>Your Email</Form.Label>
+          <OverlayTrigger placement="right" overlay={renderEmailTooltip}>
+            <Form.Control
+              type="email"
+              value={userEmail}
+              onChange={handleUserEmailChange}
+              placeholder="someone@example.com"
+              isInvalid={!!emailError}
+            />
           </OverlayTrigger>
-          <Form.Control
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          <Form.Control.Feedback type="invalid">
+            {emailError}
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+          <OverlayTrigger placement="right" overlay={renderPasswordTooltip}>
+            <Form.Control
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Enter your password"
+              isInvalid={!!passwordError}
+            />
+          </OverlayTrigger>
+          <Form.Control.Feedback type="invalid">
+            {passwordError}
+          </Form.Control.Feedback>
         </Form.Group>
         <div className="d-flex justify-content-center">
           <Button type="submit" className="mt-3 btn-dark">Login</Button>
