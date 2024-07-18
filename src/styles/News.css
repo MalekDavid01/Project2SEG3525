@@ -95,3 +95,10 @@
   align-items: center;
   margin-top: 10px;
 }
+.language-dropdown {
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  /* left: 20px; */
+  margin-bottom: 10px;
+}

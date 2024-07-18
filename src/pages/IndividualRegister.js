@@ -445,7 +445,7 @@ const IndividualRegister = () => {
           newErrors[field] = 'Please enter a valid phone number (10 digits)';
         }
         if (field === 'creditCardNumber' && !validateCreditCard(formData[field])) {
-          newErrors[field] = 'Please enter a valid credit card number (12 digits)';
+          newErrors[field] = 'Please enter a valid card number (12 digits)';
         }
         if (field === 'expiryDate' && !validateExpiryDate(formData[field])) {
           newErrors[field] = 'Please enter a valid expiry date in the format MM/YYYY';
@@ -602,9 +602,11 @@ const IndividualRegister = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
+                <div className="text-center">
                 <Button variant="dark" onClick={nextStep} className="mt-3">
                   Next Step
                 </Button>
+                </div>
               </Form>
             </div>
           )}
