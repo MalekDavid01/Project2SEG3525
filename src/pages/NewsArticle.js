@@ -73,7 +73,7 @@ const NewsArticle = () => {
   return (
     <Container fluid className="news-article-container" role="main"> {/* Added role="main" */}
       <h2 className="news-title">{translations.newsTitle[language]}</h2>
-      <Dropdown className="language-dropdown" role="navigation" aria-label="Language Selection"> {/* Added role and aria-label */}
+      {/* <Dropdown className="language-dropdown" role="navigation" aria-label="Language Selection">
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
           {language === 'en' ? 'English' : 'العربية'}
         </Dropdown.Toggle>
@@ -81,7 +81,7 @@ const NewsArticle = () => {
           <Dropdown.Item onClick={() => setLanguage('en')}>English</Dropdown.Item>
           <Dropdown.Item onClick={() => setLanguage('ar')}>العربية</Dropdown.Item>
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown> */}
       <div className="d-flex align-items-center justify-content-center mb-3 position-relative">
         <Link to="/news" className="position-absolute start-0" aria-label="Back to News"> {/* Added aria-label */}
           <Button variant="dark" className="back-button">

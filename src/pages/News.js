@@ -119,7 +119,7 @@ const News = () => {
   return (
     <Container fluid className="news-container" role="main">
       <h2 className="news-title">{translations.newsTitle[language]}</h2>
-      <Dropdown className="language-dropdown" role="navigation" aria-label="Language Selection">
+      {/* <Dropdown className="language-dropdown" role="navigation" aria-label="Language Selection">
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
           {language === 'en' ? 'English' : 'العربية'}
         </Dropdown.Toggle>
@@ -127,7 +127,7 @@ const News = () => {
           <Dropdown.Item onClick={() => setLanguage('en')}>English</Dropdown.Item>
           <Dropdown.Item onClick={() => setLanguage('ar')}>العربية</Dropdown.Item>
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown> */}
       <Row>
         {newsData.map((news) => (
           <Col md={6} key={news.id} className="mb-4">
