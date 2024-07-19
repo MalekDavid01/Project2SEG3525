@@ -173,16 +173,27 @@ const Login = () => {
   };
 
   const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      if (!email.includes('@')) {
-        return { isValid: false, errorMessage: 'Email must contain @.' };
-      } else if (!email.match(/\.[a-zA-Z]{2,}$/)) {
-        return { isValid: false, errorMessage: 'Email must end with a valid domain (e.g., .com, .ca).' };
-      } else {
-        return { isValid: false, errorMessage: 'Please enter a valid email address.' };
-      }
+    if (!email.trim()) {
+      return { isValid: false, errorMessage: 'Please enter an email address.' };
     }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const localPart = /^[^\s@]+/;
+    const domainPart = /@[^\s@]+/;
+    const tldPart = /\.[a-zA-Z]{2,}$/;
+  
+    if (!email.includes('@')) {
+      return { isValid: false, errorMessage: 'Email must contain @.' };
+    } else if (!localPart.test(email)) {
+      return { isValid: false, errorMessage: 'Local part of the email address is missing.' };
+    } else if (!domainPart.test(email)) {
+      return { isValid: false, errorMessage: 'Domain Name (e.g., hotmail, outlook, gmail) missing.' };
+    } else if (!tldPart.test(email)) {
+      return { isValid: false, errorMessage: 'Top-Level Domain (e.g., .com, .ca) is missing.' };
+    } else if (!emailRegex.test(email)) {
+      return { isValid: false, errorMessage: 'Please enter a valid email address.' };
+    }
+  
     return { isValid: true, errorMessage: '' };
   };
 
