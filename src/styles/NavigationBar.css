@@ -1,28 +1,97 @@
-.navbar {
-  padding: 1rem 2rem;
+.custom-navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 10px;
+  color: #fff;
+}
+
+.nav-links .nav-link {
+  margin-right: 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.nav-links .nav-link:hover,
+.nav-links .nav-link.active-link {
+  color: #f8f9fa;
+  background-color: #495057;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-links .nav-link.active-link {
+  text-decoration: underline; /* Underline the active link */
+}
+
+.language-dropdown {
+  display: flex;
+  align-items: center;
+  margin-top: 8px; /* Added margin-top */
+}
+
+.language-dropdown .dropdown-toggle.language-button {
+  color: #fff;
+  background-color: #6c757d;
+  border: none;
+  height: 38px;
+  width: 100px; /* Set a fixed width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+}
+
+.language-dropdown .dropdown-menu {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.language-dropdown .dropdown-item {
+  color: #fff;
+}
+
+.language-dropdown .dropdown-item:hover {
+  background-color: #6c757d;
+}
+
+button.navbar-toggler {
+  border: none;
+}
+
+.custom-navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+}
+
 .navbar-brand {
+  flex-shrink: 0;
+}
+
+.navbar-collapse {
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.nav-links {
   display: flex;
   align-items: center;
 }
-.navbar-brand img {
-  margin-right: 10px;
-  margin-left: 20px;  /* Add margin to the left of the logo */
-  width: 50px;
-  height: 50px;
-}
-.brand-name {
-  margin-left: 10px;
-}
-.ml-auto {
-  margin-left: auto;
-}
-.nav-links .nav-link {
-  color: white !important;
-  margin-right: 20px;  /* Space out the nav links */
-  text-decoration: none;
+
+.navbar-collapse > .d-flex {
+  flex-shrink: 0;
 }
 
-.nav-links .nav-link:hover {
-  text-decoration: underline;
+.align-button {
+  height: 38px; /* Ensure both buttons have the same height */
+  display: flex;
+  align-items: center;
+}
+
+.align-button.active-button {
+  background-color: #495057; /* Match active background color */
 }
