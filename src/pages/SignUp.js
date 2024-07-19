@@ -198,7 +198,25 @@ const SignUp = () => {
     }
   };
 
+  // const validateEmail = (email) => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!emailRegex.test(email)) {
+  //     if (!email.includes('@')) {
+  //       return { isValid: false, errorMessage: 'Email must contain @.' };
+  //     } else if (!email.match(/\.[a-zA-Z]{2,}$/)) {
+  //       return { isValid: false, errorMessage: 'Email must end with a valid domain (e.g., .com, .ca).' };
+  //     } else {
+  //       return { isValid: false, errorMessage: 'Please enter a valid email address.' };
+  //     }
+  //   }
+  //   return { isValid: true, errorMessage: '' };
+  // };
+
   const validateEmail = (email) => {
+    if (!email.trim()) {
+      return { isValid: false, errorMessage: 'Please enter an email address.' };
+    }
+  
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       if (!email.includes('@')) {
@@ -211,7 +229,7 @@ const SignUp = () => {
     }
     return { isValid: true, errorMessage: '' };
   };
-
+  
   const validatePassword = (password) => {
     if (password.length < 8) {
       return { isValid: false, errorMessage: 'Password must be at least 8 characters long.' };
