@@ -16,16 +16,19 @@
   color: #fff;
 }
 
-.nav-links .nav-link:hover,
-.nav-links .nav-link.active-link {
+.nav-links .nav-link:hover {
   color: #f8f9fa;
   background-color: #495057;
   border-radius: 4px;
   transition: background-color 0.3s;
 }
 
-.nav-links .nav-link.active-link {
-  text-decoration: underline; /* Underline the active link */
+.nav-links .nav-link.active,
+.nav-links .nav-link.active:hover {
+  color: #f8f9fa;
+  background-color: #343a40;
+  border-bottom: 2px solid #f8f9fa;
+  border-radius: 0;
 }
 
 .language-dropdown {
@@ -92,6 +95,7 @@ button.navbar-toggler {
   align-items: center;
 }
 
-.align-button.active-button {
-  background-color: #495057; /* Match active background color */
+.active-button {
+  background-color: #495057;
+  color: #f8f9fa;
 }
