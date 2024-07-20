@@ -268,7 +268,7 @@ const LeagueDetail = () => {
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="userEmail">
-              <Form.Label>Your Email (e.g., someone@example.com)</Form.Label>
+              <Form.Label>Your Email (required)</Form.Label>
               <OverlayTrigger placement="bottom" overlay={renderTooltip}>
                 <Form.Control
                   type="email"
