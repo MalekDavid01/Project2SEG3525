@@ -79,7 +79,7 @@ const Footer = () => {
             <ul>
               <li><a href="/" aria-label="Home">Home</a></li>
               <li><a href="/explore-competitions" aria-label="Explore Competitions">Competitions</a></li>
-              <li><a href="/register" aria-label="Register">Register</a></li>
+              <li><a href="/register" aria-label="Register">Registration</a></li>
               <li><a href="/news" aria-label="News">News</a></li>
               <li><a href="/faq" aria-label="FAQ">FAQ</a></li> {/* Added FAQ link */}
               <li><a href="/about-us" aria-label="About Us">About Us</a></li>
