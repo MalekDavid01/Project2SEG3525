@@ -71,7 +71,7 @@ const Home = () => {
       <div className="hero-section" style={{ backgroundImage: `url(${soccerField})` }}>
         <div className="welcome-message">
           <h1>Compete and Conquer with Ottawa Soccer Champions League!</h1>
-          <h2 style={{ fontSize: '1.5rem' }}>Kick Off Your Journey with Ottawa's Finest Soccer League!</h2>
+          <h2 style={{ fontSize: '1.5rem' }}>Kick Off Your Journey with Ottawa's Finest Soccer League</h2>
         </div>
       </div>
       <div className="who-are-we">
