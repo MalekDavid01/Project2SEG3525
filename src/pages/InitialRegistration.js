@@ -91,7 +91,7 @@ const InitialRegistration = () => {
         <Col md={6} lg={4}>
           <Card className="mb-4 registration-card">
             <Card.Body>
-              <Card.Img variant="top" src={teamImage} alt="Register Your Team" className="registration-card-img" />
+              <Card.Img variant="top" src={teamImage} alt="Picture of a Soccer Team" className="registration-card-img" />
               <Card.Text>
                 The team registration is a portal for individuals who would like to register a team of their own into a league. This option is ideal for those who have a group of players ready and want to compete together under a unified team.
               </Card.Text>
@@ -106,7 +106,7 @@ const InitialRegistration = () => {
         <Col md={6} lg={4}>
           <Card className="mb-4 registration-card">
             <Card.Body>
-              <Card.Img variant="top" src={individualImage} alt="Register as an Individual" className="registration-card-img" />
+              <Card.Img variant="top" src={individualImage} alt="Picture of a Soccer Player" className="registration-card-img" />
                 <Card.Text>
                 The individual registration is a portal for individuals who would like to join a team they are interested in, given that the team is in need of players to join them. This option is perfect for solo players looking to become part of a team.
                 </Card.Text>
