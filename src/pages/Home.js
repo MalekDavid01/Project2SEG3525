@@ -16,7 +16,8 @@
 //     <div>
 //       <div className="hero-section" style={{ backgroundImage: `url(${soccerField})` }}>
 //         <div className="welcome-message">
-//           <h1>Welcome to the Ottawa Soccer Champions League!</h1>
+//           <h1>Compete and Conquer with Ottawa Soccer Champions League!</h1>
+//           <h2 style={{ fontSize: '1.5rem' }}>Kick Off Your Journey with Ottawa's Finest Soccer League</h2>
 //         </div>
 //       </div>
 //       <div className="who-are-we">
@@ -52,6 +53,7 @@
 
 // export default Home;
 
+
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import '../styles/Home.css';
@@ -68,13 +70,13 @@ const Home = () => {
 
   return (
     <div>
-      <div className="hero-section" style={{ backgroundImage: `url(${soccerField})` }}>
+      <header className="hero-section" style={{ backgroundImage: `url(${soccerField})` }}>
         <div className="welcome-message">
           <h1>Compete and Conquer with Ottawa Soccer Champions League!</h1>
           <h2 style={{ fontSize: '1.5rem' }}>Kick Off Your Journey with Ottawa's Finest Soccer League</h2>
         </div>
-      </div>
-      <div className="who-are-we">
+      </header>
+      <section className="who-are-we">
         <Container>
           <Row>
             <Col>
@@ -82,8 +84,8 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
-      </div>
-      <div className="about-section">
+      </section>
+      <section className="about-section">
         <Container>
           <Row>
             <Col md={8}>
@@ -100,7 +102,7 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </section>
     </div>
   );
 };
