@@ -78,7 +78,7 @@ const Footer = () => {
             <h5>Quick Links</h5>
             <ul>
               <li><a href="/" aria-label="Home">Home</a></li>
-              <li><a href="/explore-competitions" aria-label="Explore Competitions">Explore Competitions</a></li>
+              <li><a href="/explore-competitions" aria-label="Explore Competitions">Competitions</a></li>
               <li><a href="/register" aria-label="Register">Register</a></li>
               <li><a href="/news" aria-label="News">News</a></li>
               <li><a href="/faq" aria-label="FAQ">FAQ</a></li> {/* Added FAQ link */}
